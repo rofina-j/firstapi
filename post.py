@@ -26,16 +26,12 @@ def post_data():
     unique.append(new)
 
     return jsonify({"msg":"success","data":new})
-@app.route('/one/<string:name>',methods=['PUT'])
-def put_data(name):
-    data=request.get_json()
-    for i in unique:
-        if i['name']==name:
-            if 'age' in data:
-                i['age']=data['age']
-            if 'city' in data:
-                i['city']=data['city']
-        return jsonify({"msg":"updated","msg":i})
+@app.route('/one/<string:name>',methods=['DELETE'])
+def del_data(name):
+    for i ,j in enumerate(unique):
+        if j['name']==name:
+            ans=unique.pop(i)
+        return jsonify({"msg":"name deleted","data":ans})
     return jsonify({"error": "Name not found"})
 if __name__=='__main__':
     app.run(debug=True)
